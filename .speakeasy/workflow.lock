@@ -1,0 +1,28 @@
+speakeasyVersion: 1.403.3
+sources:
+    petstore-oas:
+        sourceNamespace: petstore-oas
+        sourceRevisionDigest: sha256:ba3679af84d425159c2743fe5a5576b1f83a5f06e67d25c3e78f67a966516172
+        sourceBlobDigest: sha256:be26059fde8ec155a8e45f8e781b7df41d03f259a1c5547daa0c681bbe64ac2d
+        tags:
+            - latest
+targets:
+    petstore:
+        source: petstore-oas
+        sourceNamespace: petstore-oas
+        sourceRevisionDigest: sha256:ba3679af84d425159c2743fe5a5576b1f83a5f06e67d25c3e78f67a966516172
+        sourceBlobDigest: sha256:be26059fde8ec155a8e45f8e781b7df41d03f259a1c5547daa0c681bbe64ac2d
+workflow:
+    workflowVersion: 1.0.0
+    sources:
+        petstore-oas:
+            inputs:
+                - location: openapi.yaml
+            overlays:
+                - location: .speakeasy/speakeasy-modifications-overlay.yaml
+            registry:
+                location: registry.speakeasyapi.dev/playground-wnq/playground-testing/petstore-oas
+    targets:
+        petstore:
+            target: typescript
+            source: petstore-oas
