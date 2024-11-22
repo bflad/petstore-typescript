@@ -87,12 +87,11 @@ run();
 
 ### Errors
 
-| Error Object                | Status Code                 | Content Type                |
+| Error Type                  | Status Code                 | Content Type                |
 | --------------------------- | --------------------------- | --------------------------- |
 | errors.ApiErrorUnauthorized | 401                         | application/json            |
 | errors.ApiErrorNotFound     | 404                         | application/json            |
-| errors.SDKError             | 4xx-5xx                     | */*                         |
-
+| errors.SDKError             | 4XX, 5XX                    | \*/\*                       |
 
 ## getById
 
@@ -166,13 +165,12 @@ run();
 
 ### Errors
 
-| Error Object                | Status Code                 | Content Type                |
+| Error Type                  | Status Code                 | Content Type                |
 | --------------------------- | --------------------------- | --------------------------- |
 | errors.ApiErrorInvalidInput | 400                         | application/json            |
 | errors.ApiErrorUnauthorized | 401                         | application/json            |
 | errors.ApiErrorNotFound     | 404                         | application/json            |
-| errors.SDKError             | 4xx-5xx                     | */*                         |
-
+| errors.SDKError             | 4XX, 5XX                    | \*/\*                       |
 
 ## delete
 
@@ -246,9 +244,9 @@ run();
 
 ### Errors
 
-| Error Object                | Status Code                 | Content Type                |
+| Error Type                  | Status Code                 | Content Type                |
 | --------------------------- | --------------------------- | --------------------------- |
 | errors.ApiErrorInvalidInput | 400                         | application/json            |
 | errors.ApiErrorUnauthorized | 401                         | application/json            |
 | errors.ApiErrorNotFound     | 404                         | application/json            |
-| errors.SDKError             | 4xx-5xx                     | */*                         |
+| errors.SDKError             | 4XX, 5XX                    | \*/\*                       |

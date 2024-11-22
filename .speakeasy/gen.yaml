@@ -14,8 +14,9 @@ generation:
     requestResponseComponentNamesFeb2024: true
   auth:
     oAuth2ClientCredentialsEnabled: true
+    oAuth2PasswordEnabled: false
 typescript:
-  version: 0.1.0
+  version: 0.2.0
   additionalDependencies:
     dependencies: {}
     devDependencies: {}
@@ -23,9 +24,14 @@ typescript:
   additionalPackageJSON: {}
   author: Speakeasy
   clientServerStatusCodesAsErrors: true
+  compileCommand:
+    - pnpm
+    - install
+  defaultErrorName: SDKError
   enumFormat: union
   envVarPrefix: PETSTORE
   flattenGlobalSecurity: true
+  flatteningOrder: body-first
   imports:
     option: openapi
     paths:
@@ -43,4 +49,3 @@ typescript:
   responseFormat: flat
   templateVersion: v2
   useIndexModules: true
-  compileCommand: ["pnpm", "install"]

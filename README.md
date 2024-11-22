@@ -177,25 +177,24 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 
 <summary>Available standalone functions</summary>
 
-- [ordersDelete](docs/sdks/orders/README.md#delete)
-- [ordersGetById](docs/sdks/orders/README.md#getbyid)
-- [ordersPlace](docs/sdks/orders/README.md#place)
-- [petsAdd](docs/sdks/pets/README.md#add)
-- [petsDelete](docs/sdks/pets/README.md#delete)
-- [petsFindByStatus](docs/sdks/pets/README.md#findbystatus)
-- [petsFindByTags](docs/sdks/pets/README.md#findbytags)
-- [petsGet](docs/sdks/pets/README.md#get)
-- [petsUpdate](docs/sdks/pets/README.md#update)
-- [petsUploadImage](docs/sdks/pets/README.md#uploadimage)
-- [storesGetInventory](docs/sdks/stores/README.md#getinventory)
-- [usersCreateWithList](docs/sdks/users/README.md#createwithlist)
-- [usersCreate](docs/sdks/users/README.md#create)
-- [usersDelete](docs/sdks/users/README.md#delete)
-- [usersGetByUsername](docs/sdks/users/README.md#getbyusername)
-- [usersLogin](docs/sdks/users/README.md#login)
-- [usersLogout](docs/sdks/users/README.md#logout)
-- [usersUpdate](docs/sdks/users/README.md#update)
-
+- [`ordersDelete`](docs/sdks/orders/README.md#delete) - Delete purchase order by ID
+- [`ordersGetById`](docs/sdks/orders/README.md#getbyid) - Find purchase order by ID
+- [`ordersPlace`](docs/sdks/orders/README.md#place) - Place an order for a pet
+- [`petsAdd`](docs/sdks/pets/README.md#add) - Add a new pet to the store
+- [`petsDelete`](docs/sdks/pets/README.md#delete) - Deletes a pet
+- [`petsFindByStatus`](docs/sdks/pets/README.md#findbystatus) - Finds Pets by status
+- [`petsFindByTags`](docs/sdks/pets/README.md#findbytags) - Finds Pets by tags
+- [`petsGet`](docs/sdks/pets/README.md#get) - Find pet by ID
+- [`petsUpdate`](docs/sdks/pets/README.md#update) - Update an existing pet
+- [`petsUploadImage`](docs/sdks/pets/README.md#uploadimage) - uploads an image
+- [`storesGetInventory`](docs/sdks/stores/README.md#getinventory) - Returns pet inventories by status
+- [`usersCreate`](docs/sdks/users/README.md#create) - Create user
+- [`usersCreateWithList`](docs/sdks/users/README.md#createwithlist) - Creates list of users with given input array
+- [`usersDelete`](docs/sdks/users/README.md#delete) - Delete user
+- [`usersGetByUsername`](docs/sdks/users/README.md#getbyusername) - Get user by user name
+- [`usersLogin`](docs/sdks/users/README.md#login) - Logs user into the system
+- [`usersLogout`](docs/sdks/users/README.md#logout) - Logs out current logged in user session
+- [`usersUpdate`](docs/sdks/users/README.md#update) - Update user
 
 </details>
 <!-- End Standalone functions [standalone-funcs] -->
@@ -325,17 +324,26 @@ run();
 <!-- Start Error Handling [errors] -->
 ## Error Handling
 
-All SDK methods return a response object or throw an error. If Error objects are specified in your OpenAPI Spec, the SDK will throw the appropriate Error type.
+All SDK methods return a response object or throw an error. By default, an API error will throw a `errors.SDKError`.
 
-| Error Object                | Status Code                 | Content Type                |
-| --------------------------- | --------------------------- | --------------------------- |
-| errors.ApiErrorInvalidInput | 400                         | application/json            |
-| errors.ApiErrorUnauthorized | 401                         | application/json            |
-| errors.ApiErrorNotFound     | 404                         | application/json            |
-| errors.SDKError             | 4xx-5xx                     | */*                         |
+If a HTTP request fails, an operation my also throw an error from the `models/errors/httpclienterrors.ts` module:
 
-Validation errors can also occur when either method arguments or data returned from the server do not match the expected format. The `SDKValidationError` that is thrown as a result will capture the raw value that failed validation in an attribute called `rawValue`. Additionally, a `pretty()` method is available on this error that can be used to log a nicely formatted string since validation errors can list many issues and the plain error string may be difficult read when debugging. 
+| HTTP Client Error                                    | Description                                          |
+| ---------------------------------------------------- | ---------------------------------------------------- |
+| RequestAbortedError                                  | HTTP request was aborted by the client               |
+| RequestTimeoutError                                  | HTTP request timed out due to an AbortSignal signal  |
+| ConnectionError                                      | HTTP client was unable to make a request to a server |
+| InvalidRequestError                                  | Any input used to create a request is invalid        |
+| UnexpectedClientError                                | Unrecognised or unexpected error                     |
 
+In addition, when custom error responses are specified for an operation, the SDK may throw their associated Error type. You can refer to respective *Errors* tables in SDK docs for more details on possible error types for each operation. For example, the `update` method may throw the following errors:
+
+| Error Type                  | Status Code | Content Type     |
+| --------------------------- | ----------- | ---------------- |
+| errors.ApiErrorInvalidInput | 400         | application/json |
+| errors.ApiErrorUnauthorized | 401         | application/json |
+| errors.ApiErrorNotFound     | 404         | application/json |
+| errors.SDKError             | 4XX, 5XX    | \*/\*            |
 
 ```typescript
 import { Petstore } from "petstore";
@@ -402,63 +410,26 @@ async function run() {
 run();
 
 ```
+
+Validation errors can also occur when either method arguments or data returned from the server do not match the expected format. The `SDKValidationError` that is thrown as a result will capture the raw value that failed validation in an attribute called `rawValue`. Additionally, a `pretty()` method is available on this error that can be used to log a nicely formatted string since validation errors can list many issues and the plain error string may be difficult read when debugging.
 <!-- End Error Handling [errors] -->
 
 <!-- Start Server Selection [server] -->
 ## Server Selection
 
-### Select Server by Index
+### Server Variables
 
-You can override the default server globally by passing a server index to the `serverIdx` optional parameter when initializing the SDK client instance. The selected server will then be used as the default on the operations that use it. This table lists the indexes associated with the available servers:
-
-| # | Server | Variables |
-| - | ------ | --------- |
-| 0 | `https://{environment}.petstore.io` | `environment` (default is `prod`) |
-
-```typescript
-import { Petstore } from "petstore";
-
-const petstore = new Petstore({
-  serverIdx: 0,
-  apiKey: process.env["PETSTORE_API_KEY"] ?? "",
-});
-
-async function run() {
-  const result = await petstore.pets.update({
-    id: 10,
-    name: "doggie",
-    category: {
-      id: 1,
-      name: "Dogs",
-    },
-    photoUrls: [
-      "<value>",
-      "<value>",
-    ],
-  });
-
-  // Handle the result
-  console.log(result);
-}
-
-run();
-
-```
-
-#### Variables
-
-Some of the server options above contain variables. If you want to set the values of those variables, the following optional parameters are available when initializing the SDK client instance:
+The default server `https://{environment}.petstore.io` contains variables and is set to `https://prod.petstore.io` by default. To override default values, the following parameters are available when initializing the SDK client instance:
  * `environment: models.ServerEnvironment`
 
 ### Override Server URL Per-Client
 
-The default server can also be overridden globally by passing a URL to the `serverURL` optional parameter when initializing the SDK client instance. For example:
-
+The default server can also be overridden globally by passing a URL to the `serverURL: string` optional parameter when initializing the SDK client instance. For example:
 ```typescript
 import { Petstore } from "petstore";
 
 const petstore = new Petstore({
-  serverURL: "https://{environment}.petstore.io",
+  serverURL: "https://prod.petstore.io",
   apiKey: process.env["PETSTORE_API_KEY"] ?? "",
 });
 
@@ -541,9 +512,9 @@ const sdk = new Petstore({ httpClient });
 
 This SDK supports the following security scheme globally:
 
-| Name                 | Type                 | Scheme               | Environment Variable |
-| -------------------- | -------------------- | -------------------- | -------------------- |
-| `apiKey`             | apiKey               | API key              | `PETSTORE_API_KEY`   |
+| Name     | Type   | Scheme  | Environment Variable |
+| -------- | ------ | ------- | -------------------- |
+| `apiKey` | apiKey | API key | `PETSTORE_API_KEY`   |
 
 To authenticate with the API the `apiKey` parameter must be set when initializing the SDK client instance. For example:
 ```typescript

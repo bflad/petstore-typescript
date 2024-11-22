@@ -103,13 +103,12 @@ run();
 
 ### Errors
 
-| Error Object                | Status Code                 | Content Type                |
+| Error Type                  | Status Code                 | Content Type                |
 | --------------------------- | --------------------------- | --------------------------- |
 | errors.ApiErrorInvalidInput | 400                         | application/json            |
 | errors.ApiErrorUnauthorized | 401                         | application/json            |
 | errors.ApiErrorNotFound     | 404                         | application/json            |
-| errors.SDKError             | 4xx-5xx                     | */*                         |
-
+| errors.SDKError             | 4XX, 5XX                    | \*/\*                       |
 
 ## add
 
@@ -199,10 +198,9 @@ run();
 
 ### Errors
 
-| Error Object    | Status Code     | Content Type    |
+| Error Type      | Status Code     | Content Type    |
 | --------------- | --------------- | --------------- |
-| errors.SDKError | 4xx-5xx         | */*             |
-
+| errors.SDKError | 4XX, 5XX        | \*/\*           |
 
 ## findByStatus
 
@@ -272,13 +270,12 @@ run();
 
 ### Errors
 
-| Error Object                | Status Code                 | Content Type                |
+| Error Type                  | Status Code                 | Content Type                |
 | --------------------------- | --------------------------- | --------------------------- |
 | errors.ApiErrorInvalidInput | 400                         | application/json            |
 | errors.ApiErrorUnauthorized | 401                         | application/json            |
 | errors.ApiErrorNotFound     | 404                         | application/json            |
-| errors.SDKError             | 4xx-5xx                     | */*                         |
-
+| errors.SDKError             | 4XX, 5XX                    | \*/\*                       |
 
 ## findByTags
 
@@ -348,13 +345,12 @@ run();
 
 ### Errors
 
-| Error Object                | Status Code                 | Content Type                |
+| Error Type                  | Status Code                 | Content Type                |
 | --------------------------- | --------------------------- | --------------------------- |
 | errors.ApiErrorInvalidInput | 400                         | application/json            |
 | errors.ApiErrorUnauthorized | 401                         | application/json            |
 | errors.ApiErrorNotFound     | 404                         | application/json            |
-| errors.SDKError             | 4xx-5xx                     | */*                         |
-
+| errors.SDKError             | 4XX, 5XX                    | \*/\*                       |
 
 ## get
 
@@ -428,13 +424,12 @@ run();
 
 ### Errors
 
-| Error Object                | Status Code                 | Content Type                |
+| Error Type                  | Status Code                 | Content Type                |
 | --------------------------- | --------------------------- | --------------------------- |
 | errors.ApiErrorInvalidInput | 400                         | application/json            |
 | errors.ApiErrorUnauthorized | 401                         | application/json            |
 | errors.ApiErrorNotFound     | 404                         | application/json            |
-| errors.SDKError             | 4xx-5xx                     | */*                         |
-
+| errors.SDKError             | 4XX, 5XX                    | \*/\*                       |
 
 ## delete
 
@@ -508,13 +503,12 @@ run();
 
 ### Errors
 
-| Error Object                | Status Code                 | Content Type                |
+| Error Type                  | Status Code                 | Content Type                |
 | --------------------------- | --------------------------- | --------------------------- |
 | errors.ApiErrorInvalidInput | 400                         | application/json            |
 | errors.ApiErrorUnauthorized | 401                         | application/json            |
 | errors.ApiErrorNotFound     | 404                         | application/json            |
-| errors.SDKError             | 4xx-5xx                     | */*                         |
-
+| errors.SDKError             | 4XX, 5XX                    | \*/\*                       |
 
 ## uploadImage
 
@@ -588,6 +582,6 @@ run();
 
 ### Errors
 
-| Error Object    | Status Code     | Content Type    |
+| Error Type      | Status Code     | Content Type    |
 | --------------- | --------------- | --------------- |
-| errors.SDKError | 4xx-5xx         | */*             |
+| errors.SDKError | 4XX, 5XX        | \*/\*           |
