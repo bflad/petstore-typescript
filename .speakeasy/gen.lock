@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 675b6e33-b536-4dcc-ab4c-5f5aa007feff
 management:
-  docChecksum: 19ee6089f02706b96429f4c8bc960f5e
+  docChecksum: 843b787bb54aa5ae09182f078958d99f
   docVersion: 1.0.0
-  speakeasyVersion: 1.443.0
+  speakeasyVersion: 1.445.1
   generationVersion: 2.461.4
-  releaseVersion: 0.2.0
-  configChecksum: 6ed73ddf5fa7eb0e17df15d808f5b2c2
+  releaseVersion: 0.3.1
+  configChecksum: 7a9c7939c541d2dbc58e2cbb23be971e
 features:
   typescript:
     additionalDependencies: 0.1.0
@@ -21,6 +21,7 @@ features:
     globalSecurityFlattening: 0.1.0
     globalServerURLs: 2.82.4
     groups: 2.81.2
+    mockServer: 0.1.0
     nameOverrides: 2.81.2
     responseFormat: 0.2.3
     retries: 2.83.0
@@ -71,6 +72,93 @@ generatedFiles:
   - docs/sdks/users/README.md
   - jsr.json
   - package.json
+  - src/__tests__/files.ts
+  - src/__tests__/mockserver/Dockerfile
+  - src/__tests__/mockserver/README.md
+  - src/__tests__/mockserver/go.mod
+  - src/__tests__/mockserver/go.sum
+  - src/__tests__/mockserver/internal/handler/assert/header.go
+  - src/__tests__/mockserver/internal/handler/assert/parameter.go
+  - src/__tests__/mockserver/internal/handler/assert/pointer.go
+  - src/__tests__/mockserver/internal/handler/assert/security.go
+  - src/__tests__/mockserver/internal/handler/doc.go
+  - src/__tests__/mockserver/internal/handler/generated_handler.go
+  - src/__tests__/mockserver/internal/handler/generated_handlers.go
+  - src/__tests__/mockserver/internal/handler/op_addpet.go
+  - src/__tests__/mockserver/internal/handler/op_createuser.go
+  - src/__tests__/mockserver/internal/handler/op_createuserswithlistinput.go
+  - src/__tests__/mockserver/internal/handler/op_deleteorder.go
+  - src/__tests__/mockserver/internal/handler/op_deletepet.go
+  - src/__tests__/mockserver/internal/handler/op_deleteuser.go
+  - src/__tests__/mockserver/internal/handler/op_findpetsbystatus.go
+  - src/__tests__/mockserver/internal/handler/op_findpetsbytags.go
+  - src/__tests__/mockserver/internal/handler/op_getinventory.go
+  - src/__tests__/mockserver/internal/handler/op_getorderbyid.go
+  - src/__tests__/mockserver/internal/handler/op_getpetbyid.go
+  - src/__tests__/mockserver/internal/handler/op_getuserbyname.go
+  - src/__tests__/mockserver/internal/handler/op_loginuser.go
+  - src/__tests__/mockserver/internal/handler/op_logoutuser.go
+  - src/__tests__/mockserver/internal/handler/op_placeorder.go
+  - src/__tests__/mockserver/internal/handler/op_updatepet.go
+  - src/__tests__/mockserver/internal/handler/op_updateuser.go
+  - src/__tests__/mockserver/internal/logging/doc.go
+  - src/__tests__/mockserver/internal/logging/formats.go
+  - src/__tests__/mockserver/internal/logging/http_file.go
+  - src/__tests__/mockserver/internal/logging/http_logger.go
+  - src/__tests__/mockserver/internal/logging/levels.go
+  - src/__tests__/mockserver/internal/logging/logger.go
+  - src/__tests__/mockserver/internal/logging/oas_operation.go
+  - src/__tests__/mockserver/internal/logging/oas_operation_call.go
+  - src/__tests__/mockserver/internal/sdk/models/components/apiresponse.go
+  - src/__tests__/mockserver/internal/sdk/models/components/category.go
+  - src/__tests__/mockserver/internal/sdk/models/components/httpmetadata.go
+  - src/__tests__/mockserver/internal/sdk/models/components/order.go
+  - src/__tests__/mockserver/internal/sdk/models/components/pet.go
+  - src/__tests__/mockserver/internal/sdk/models/components/security.go
+  - src/__tests__/mockserver/internal/sdk/models/components/tag.go
+  - src/__tests__/mockserver/internal/sdk/models/components/user.go
+  - src/__tests__/mockserver/internal/sdk/models/operations/addpet.go
+  - src/__tests__/mockserver/internal/sdk/models/operations/createuser.go
+  - src/__tests__/mockserver/internal/sdk/models/operations/createuserswithlistinput.go
+  - src/__tests__/mockserver/internal/sdk/models/operations/deleteorder.go
+  - src/__tests__/mockserver/internal/sdk/models/operations/deletepet.go
+  - src/__tests__/mockserver/internal/sdk/models/operations/deleteuser.go
+  - src/__tests__/mockserver/internal/sdk/models/operations/findpetsbystatus.go
+  - src/__tests__/mockserver/internal/sdk/models/operations/findpetsbytags.go
+  - src/__tests__/mockserver/internal/sdk/models/operations/getinventory.go
+  - src/__tests__/mockserver/internal/sdk/models/operations/getorderbyid.go
+  - src/__tests__/mockserver/internal/sdk/models/operations/getpetbyid.go
+  - src/__tests__/mockserver/internal/sdk/models/operations/getuserbyname.go
+  - src/__tests__/mockserver/internal/sdk/models/operations/loginuser.go
+  - src/__tests__/mockserver/internal/sdk/models/operations/logoutuser.go
+  - src/__tests__/mockserver/internal/sdk/models/operations/placeorder.go
+  - src/__tests__/mockserver/internal/sdk/models/operations/updatepet.go
+  - src/__tests__/mockserver/internal/sdk/models/operations/updateuser.go
+  - src/__tests__/mockserver/internal/sdk/models/operations/uploadfile.go
+  - src/__tests__/mockserver/internal/sdk/models/sdkerrors/apierrorinvalidinput.go
+  - src/__tests__/mockserver/internal/sdk/models/sdkerrors/apierrornotfound.go
+  - src/__tests__/mockserver/internal/sdk/models/sdkerrors/apierrorunauthorized.go
+  - src/__tests__/mockserver/internal/sdk/types/bigint.go
+  - src/__tests__/mockserver/internal/sdk/types/date.go
+  - src/__tests__/mockserver/internal/sdk/types/datetime.go
+  - src/__tests__/mockserver/internal/sdk/types/decimal.go
+  - src/__tests__/mockserver/internal/sdk/types/pointers.go
+  - src/__tests__/mockserver/internal/sdk/utils/json.go
+  - src/__tests__/mockserver/internal/sdk/utils/reflect.go
+  - src/__tests__/mockserver/internal/sdk/utils/sort.go
+  - src/__tests__/mockserver/internal/server/doc.go
+  - src/__tests__/mockserver/internal/server/generated_handlers.go
+  - src/__tests__/mockserver/internal/server/internal_handlers.go
+  - src/__tests__/mockserver/internal/server/server.go
+  - src/__tests__/mockserver/internal/server/server_option.go
+  - src/__tests__/mockserver/internal/server/templates/log/index.html.tmpl
+  - src/__tests__/mockserver/internal/server/templates/log/operation.html.tmpl
+  - src/__tests__/mockserver/internal/server/templates/log/style.css.tmpl
+  - src/__tests__/mockserver/main.go
+  - src/__tests__/orders.test.ts
+  - src/__tests__/pets.test.ts
+  - src/__tests__/stores.test.ts
+  - src/__tests__/users.test.ts
   - src/core.ts
   - src/funcs/ordersDelete.ts
   - src/funcs/ordersGetById.ts

@@ -231,6 +231,7 @@ paths:
 
   "/pet/{petId}/uploadImage":
     post:
+      x-speakeasy-test: false
       tags:
       - pet
       summary: uploads an image
@@ -724,4 +725,4 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ApiErrorInvalidInput'
-
+x-speakeasy-test: true
