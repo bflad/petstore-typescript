@@ -417,10 +417,48 @@ Validation errors can also occur when either method arguments or data returned f
 <!-- Start Server Selection [server] -->
 ## Server Selection
 
-### Server Variables
+### Select Server by Index
 
-The default server `https://{environment}.petstore.io` contains variables and is set to `https://prod.petstore.io` by default. To override default values, the following parameters are available when initializing the SDK client instance:
- * `environment: models.ServerEnvironment`
+You can override the default server globally by passing a server index to the `serverIdx: number` optional parameter when initializing the SDK client instance. The selected server will then be used as the default on the operations that use it. This table lists the indexes associated with the available servers:
+
+| #   | Server                              | Variables                               | Default values |
+| --- | ----------------------------------- | --------------------------------------- | -------------- |
+| 0   | `http://localhost:18080`            |                                         |                |
+| 1   | `https://{environment}.petstore.io` | `environment: models.ServerEnvironment` | `"prod"`       |
+
+If the selected server has variables, you may override their default values through the additional parameters made available in the SDK constructor.
+
+#### Example
+
+```typescript
+import { Petstore } from "petstore";
+
+const petstore = new Petstore({
+  serverIdx: 1,
+  apiKey: process.env["PETSTORE_API_KEY"] ?? "",
+});
+
+async function run() {
+  const result = await petstore.pets.update({
+    id: 10,
+    name: "doggie",
+    category: {
+      id: 1,
+      name: "Dogs",
+    },
+    photoUrls: [
+      "<value>",
+      "<value>",
+    ],
+  });
+
+  // Handle the result
+  console.log(result);
+}
+
+run();
+
+```
 
 ### Override Server URL Per-Client
 
@@ -429,7 +467,7 @@ The default server can also be overridden globally by passing a URL to the `serv
 import { Petstore } from "petstore";
 
 const petstore = new Petstore({
-  serverURL: "https://prod.petstore.io",
+  serverURL: "http://localhost:18080",
   apiKey: process.env["PETSTORE_API_KEY"] ?? "",
 });
 

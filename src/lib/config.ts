@@ -13,6 +13,10 @@ import { Params, pathToFunc } from "./url.js";
  */
 export const ServerList = [
   /**
+   * Mock API server.
+   */
+  "http://localhost:18080",
+  /**
    * A per-environment API.
    */
   "https://{environment}.petstore.io",
@@ -59,6 +63,7 @@ export function serverURLFromOptions(options: SDKOptions): URL | null {
   let serverURL = options.serverURL;
 
   const serverParams: Params[] = [
+    {},
     {
       "environment": options.environment ?? "prod",
     },
@@ -81,7 +86,7 @@ export function serverURLFromOptions(options: SDKOptions): URL | null {
 export const SDK_METADATA = {
   language: "typescript",
   openapiDocVersion: "1.0.0",
-  sdkVersion: "0.3.1",
+  sdkVersion: "0.3.2",
   genVersion: "2.461.4",
-  userAgent: "speakeasy-sdk/typescript 0.3.1 2.461.4 1.0.0 petstore",
+  userAgent: "speakeasy-sdk/typescript 0.3.2 2.461.4 1.0.0 petstore",
 } as const;
