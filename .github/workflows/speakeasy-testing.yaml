@@ -22,7 +22,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version-file: "package.json"
-      - run: npm ci
+      - run: npm install
       - run: curl -fsSL https://go.speakeasy.com/cli-install.sh | sh
       - uses: docker/build-push-action@v6
         with:
