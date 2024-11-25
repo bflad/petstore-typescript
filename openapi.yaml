@@ -21,6 +21,8 @@ externalDocs:
 security:
   - api_key: []
 servers:
+  - url: http://localhost:18080
+    description: Mock API server.
   - url: https://{environment}.petstore.io
     description: A per-environment API.
     variables:
