@@ -24,12 +24,6 @@ jobs:
           node-version-file: "package.json"
       - run: npm install
       - run: curl -fsSL https://go.speakeasy.com/cli-install.sh | sh
-      - uses: docker/build-push-action@v6
-        with:
-          context: src/__tests__/mockserver
-          push: false
-          tags: mockserver-typescript:latest
-      - run: docker run -d -p 18080:18080 mockserver-typescript:latest
       - run: speakeasy test
         env:
           SPEAKEASY_API_KEY: ${{ secrets.SPEAKEASY_API_KEY }}
