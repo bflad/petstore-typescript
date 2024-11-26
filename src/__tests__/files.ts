@@ -13,7 +13,7 @@ export function filesToStream(filePath: string): ReadableStream<Uint8Array> {
 }
 
 export async function filesToByteArray(filePath: string): Promise<Uint8Array> {
-  return readFile(filePath);
+  return new Uint8Array(await readFile(filePath));
 }
 
 export async function filesToString(filePath: string): Promise<string> {
@@ -40,4 +40,17 @@ export async function streamToByteArray(
   }
 
   return Buffer.concat(chunks);
+}
+
+export function bytesToStream(bytes: Uint8Array): ReadableStream<Uint8Array> {
+  return new ReadableStream({
+    start(controller) {
+      controller.enqueue(bytes);
+    },
+    pull(controller) {
+      controller.close();
+    },
+    cancel() {
+    },
+  });
 }

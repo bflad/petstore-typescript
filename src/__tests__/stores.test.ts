@@ -4,13 +4,15 @@
 
 import { expect, test } from "vitest";
 import { Petstore } from "../index.js";
+import { createTestHTTPClient } from "./testclient.js";
 
 test("Stores Get Inventory", async () => {
   const petstore = new Petstore({
+    serverURL: process.env["TEST_SERVER_URL"] ?? "http://localhost:18080",
+    httpClient: createTestHTTPClient("getInventory"),
     apiKey: process.env["PETSTORE_API_KEY"] ?? "",
   });
   const result = await petstore.stores.getInventory();
-  expect(result).toBeDefined();
   expect(result).toBeDefined();
   expect(result).toEqual({
     "key": 373538,

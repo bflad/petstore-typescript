@@ -4,9 +4,12 @@
 
 import { expect, test } from "vitest";
 import { Petstore } from "../index.js";
+import { createTestHTTPClient } from "./testclient.js";
 
 test("Orders Place Order", async () => {
   const petstore = new Petstore({
+    serverURL: process.env["TEST_SERVER_URL"] ?? "http://localhost:18080",
+    httpClient: createTestHTTPClient("placeOrder"),
     apiKey: process.env["PETSTORE_API_KEY"] ?? "",
   });
   const result = await petstore.orders.place({
@@ -15,7 +18,6 @@ test("Orders Place Order", async () => {
     quantity: 7,
     status: "approved",
   });
-  expect(result).toBeDefined();
   expect(result).toBeDefined();
   expect(result).toEqual({
     id: 10,
@@ -27,12 +29,13 @@ test("Orders Place Order", async () => {
 
 test("Orders Get Order By Id", async () => {
   const petstore = new Petstore({
+    serverURL: process.env["TEST_SERVER_URL"] ?? "http://localhost:18080",
+    httpClient: createTestHTTPClient("getOrderById"),
     apiKey: process.env["PETSTORE_API_KEY"] ?? "",
   });
   const result = await petstore.orders.getById({
     orderId: 614993,
   });
-  expect(result).toBeDefined();
   expect(result).toBeDefined();
   expect(result).toEqual({
     id: 10,
@@ -44,12 +47,13 @@ test("Orders Get Order By Id", async () => {
 
 test("Orders Delete Order", async () => {
   const petstore = new Petstore({
+    serverURL: process.env["TEST_SERVER_URL"] ?? "http://localhost:18080",
+    httpClient: createTestHTTPClient("deleteOrder"),
     apiKey: process.env["PETSTORE_API_KEY"] ?? "",
   });
   const result = await petstore.orders.delete({
     orderId: 127902,
   });
-  expect(result).toBeDefined();
   expect(result).toBeDefined();
   expect(result).toEqual({
     id: 10,

@@ -4,9 +4,12 @@
 
 import { expect, test } from "vitest";
 import { Petstore } from "../index.js";
+import { createTestHTTPClient } from "./testclient.js";
 
 test("Users Create User", async () => {
   const petstore = new Petstore({
+    serverURL: process.env["TEST_SERVER_URL"] ?? "http://localhost:18080",
+    httpClient: createTestHTTPClient("createUser"),
     apiKey: process.env["PETSTORE_API_KEY"] ?? "",
   });
   const result = await petstore.users.create({
@@ -19,7 +22,6 @@ test("Users Create User", async () => {
     phone: "12345",
     userStatus: 1,
   });
-  expect(result).toBeDefined();
   expect(result).toBeDefined();
   expect(result).toEqual({
     id: 10,
@@ -35,6 +37,8 @@ test("Users Create User", async () => {
 
 test("Users Create Users With List Input", async () => {
   const petstore = new Petstore({
+    serverURL: process.env["TEST_SERVER_URL"] ?? "http://localhost:18080",
+    httpClient: createTestHTTPClient("createUsersWithListInput"),
     apiKey: process.env["PETSTORE_API_KEY"] ?? "",
   });
   const result = await petstore.users.createWithList([
@@ -50,7 +54,6 @@ test("Users Create Users With List Input", async () => {
     },
   ]);
   expect(result).toBeDefined();
-  expect(result).toBeDefined();
   expect(result).toEqual({
     id: 10,
     username: "theUser",
@@ -65,16 +68,20 @@ test("Users Create Users With List Input", async () => {
 
 test("Users Login User", async () => {
   const petstore = new Petstore({
+    serverURL: process.env["TEST_SERVER_URL"] ?? "http://localhost:18080",
+    httpClient: createTestHTTPClient("loginUser"),
     apiKey: process.env["PETSTORE_API_KEY"] ?? "",
   });
   const result = await petstore.users.login({});
   expect(result).toBeDefined();
-  expect(result).toBeDefined();
-  expect(result).toEqual("<value>");
+  expect(result.result).toBeDefined();
+  expect(result.result).toEqual("<value>");
 });
 
 test("Users Logout User", async () => {
   const petstore = new Petstore({
+    serverURL: process.env["TEST_SERVER_URL"] ?? "http://localhost:18080",
+    httpClient: createTestHTTPClient("logoutUser"),
     apiKey: process.env["PETSTORE_API_KEY"] ?? "",
   });
   await petstore.users.logout();
@@ -82,12 +89,13 @@ test("Users Logout User", async () => {
 
 test("Users Get User By Name", async () => {
   const petstore = new Petstore({
+    serverURL: process.env["TEST_SERVER_URL"] ?? "http://localhost:18080",
+    httpClient: createTestHTTPClient("getUserByName"),
     apiKey: process.env["PETSTORE_API_KEY"] ?? "",
   });
   const result = await petstore.users.getByUsername({
     username: "Zachery_Lubowitz15",
   });
-  expect(result).toBeDefined();
   expect(result).toBeDefined();
   expect(result).toEqual({
     id: 10,
@@ -103,6 +111,8 @@ test("Users Get User By Name", async () => {
 
 test("Users Update User", async () => {
   const petstore = new Petstore({
+    serverURL: process.env["TEST_SERVER_URL"] ?? "http://localhost:18080",
+    httpClient: createTestHTTPClient("updateUser"),
     apiKey: process.env["PETSTORE_API_KEY"] ?? "",
   });
   await petstore.users.update({
@@ -122,12 +132,13 @@ test("Users Update User", async () => {
 
 test("Users Delete User", async () => {
   const petstore = new Petstore({
+    serverURL: process.env["TEST_SERVER_URL"] ?? "http://localhost:18080",
+    httpClient: createTestHTTPClient("deleteUser"),
     apiKey: process.env["PETSTORE_API_KEY"] ?? "",
   });
   const result = await petstore.users.delete({
     username: "Demetris_Schmitt",
   });
-  expect(result).toBeDefined();
   expect(result).toBeDefined();
   expect(result).toEqual({
     id: 10,

@@ -3,15 +3,15 @@ id: 675b6e33-b536-4dcc-ab4c-5f5aa007feff
 management:
   docChecksum: b8710190b8e88ff9445910104fabed2f
   docVersion: 1.0.0
-  speakeasyVersion: 1.445.2
-  generationVersion: 2.461.4
-  releaseVersion: 0.3.3
-  configChecksum: 0698cd2b09371e011c3ba965d0e9676f
+  speakeasyVersion: 0.0.1
+  generationVersion: 2.464.0
+  releaseVersion: 0.3.4
+  configChecksum: dd748400082d77b7437b331f2c1db4a3
 features:
   typescript:
     additionalDependencies: 0.1.0
     constsAndDefaults: 0.1.11
-    core: 3.18.6
+    core: 3.18.7
     defaultEnabledRetries: 0.1.0
     devContainers: 2.90.0
     enumUnions: 0.1.0
@@ -74,9 +74,11 @@ generatedFiles:
   - package.json
   - src/__tests__/files.ts
   - src/__tests__/mockserver/Dockerfile
+  - src/__tests__/mockserver/Makefile
   - src/__tests__/mockserver/README.md
   - src/__tests__/mockserver/go.mod
   - src/__tests__/mockserver/go.sum
+  - src/__tests__/mockserver/internal/handler/assert/contenttype.go
   - src/__tests__/mockserver/internal/handler/assert/header.go
   - src/__tests__/mockserver/internal/handler/assert/parameter.go
   - src/__tests__/mockserver/internal/handler/assert/pointer.go
@@ -84,23 +86,24 @@ generatedFiles:
   - src/__tests__/mockserver/internal/handler/doc.go
   - src/__tests__/mockserver/internal/handler/generated_handler.go
   - src/__tests__/mockserver/internal/handler/generated_handlers.go
-  - src/__tests__/mockserver/internal/handler/op_addpet.go
-  - src/__tests__/mockserver/internal/handler/op_createuser.go
-  - src/__tests__/mockserver/internal/handler/op_createuserswithlistinput.go
-  - src/__tests__/mockserver/internal/handler/op_deleteorder.go
-  - src/__tests__/mockserver/internal/handler/op_deletepet.go
-  - src/__tests__/mockserver/internal/handler/op_deleteuser.go
-  - src/__tests__/mockserver/internal/handler/op_findpetsbystatus.go
-  - src/__tests__/mockserver/internal/handler/op_findpetsbytags.go
-  - src/__tests__/mockserver/internal/handler/op_getinventory.go
-  - src/__tests__/mockserver/internal/handler/op_getorderbyid.go
-  - src/__tests__/mockserver/internal/handler/op_getpetbyid.go
-  - src/__tests__/mockserver/internal/handler/op_getuserbyname.go
-  - src/__tests__/mockserver/internal/handler/op_loginuser.go
-  - src/__tests__/mockserver/internal/handler/op_logoutuser.go
-  - src/__tests__/mockserver/internal/handler/op_placeorder.go
-  - src/__tests__/mockserver/internal/handler/op_updatepet.go
-  - src/__tests__/mockserver/internal/handler/op_updateuser.go
+  - src/__tests__/mockserver/internal/handler/pathdeletepetpetid.go
+  - src/__tests__/mockserver/internal/handler/pathdeletestoreorderorderid.go
+  - src/__tests__/mockserver/internal/handler/pathdeleteuserusername.go
+  - src/__tests__/mockserver/internal/handler/pathgetpetfindbystatus.go
+  - src/__tests__/mockserver/internal/handler/pathgetpetfindbytags.go
+  - src/__tests__/mockserver/internal/handler/pathgetpetpetid.go
+  - src/__tests__/mockserver/internal/handler/pathgetstoreinventory.go
+  - src/__tests__/mockserver/internal/handler/pathgetstoreorderorderid.go
+  - src/__tests__/mockserver/internal/handler/pathgetuserlogin.go
+  - src/__tests__/mockserver/internal/handler/pathgetuserlogout.go
+  - src/__tests__/mockserver/internal/handler/pathgetuserusername.go
+  - src/__tests__/mockserver/internal/handler/pathpostpet.go
+  - src/__tests__/mockserver/internal/handler/pathpoststoreorder.go
+  - src/__tests__/mockserver/internal/handler/pathpostuser.go
+  - src/__tests__/mockserver/internal/handler/pathpostusercreatewithlist.go
+  - src/__tests__/mockserver/internal/handler/pathputpet.go
+  - src/__tests__/mockserver/internal/handler/pathputuserusername.go
+  - src/__tests__/mockserver/internal/handler/values/files.go
   - src/__tests__/mockserver/internal/logging/doc.go
   - src/__tests__/mockserver/internal/logging/formats.go
   - src/__tests__/mockserver/internal/logging/http_file.go
@@ -158,6 +161,7 @@ generatedFiles:
   - src/__tests__/orders.test.ts
   - src/__tests__/pets.test.ts
   - src/__tests__/stores.test.ts
+  - src/__tests__/testclient.ts
   - src/__tests__/users.test.ts
   - src/core.ts
   - src/funcs/ordersDelete.ts
@@ -427,3 +431,21 @@ examples:
           application/json: {"status": 401, "error": "Unauthorized"}
         "404":
           application/json: {"status": 404, "error": "Not Found", "code": "object_not_found"}
+generatedTests:
+  updatePet: "2024-11-26T14:16:22-05:00"
+  addPet: "2024-11-26T14:16:22-05:00"
+  findPetsByStatus: "2024-11-26T14:16:22-05:00"
+  findPetsByTags: "2024-11-26T14:16:22-05:00"
+  getPetById: "2024-11-26T14:16:22-05:00"
+  deletePet: "2024-11-26T14:16:22-05:00"
+  getInventory: "2024-11-26T14:16:22-05:00"
+  placeOrder: "2024-11-26T14:16:22-05:00"
+  getOrderById: "2024-11-26T14:16:22-05:00"
+  deleteOrder: "2024-11-26T14:16:22-05:00"
+  createUser: "2024-11-26T14:16:22-05:00"
+  createUsersWithListInput: "2024-11-26T14:16:22-05:00"
+  loginUser: "2024-11-26T14:16:22-05:00"
+  logoutUser: "2024-11-26T14:16:22-05:00"
+  getUserByName: "2024-11-26T14:16:22-05:00"
+  updateUser: "2024-11-26T14:16:22-05:00"
+  deleteUser: "2024-11-26T14:16:22-05:00"
