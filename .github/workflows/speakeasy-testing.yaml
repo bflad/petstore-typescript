@@ -26,4 +26,5 @@ jobs:
       - run: curl -fsSL https://go.speakeasy.com/cli-install.sh | sh
       - run: speakeasy test
         env:
+          PETSTORE_API_KEY: test123
           SPEAKEASY_API_KEY: ${{ secrets.SPEAKEASY_API_KEY }}
