@@ -36,21 +36,21 @@ export const ServerEnvironment = {
 export type ServerEnvironment = ClosedEnum<typeof ServerEnvironment>;
 
 export type SDKOptions = {
-  apiKey?: string | (() => Promise<string>);
+  apiKey?: string | (() => Promise<string>) | undefined;
 
   httpClient?: HTTPClient;
   /**
    * Allows overriding the default server used by the SDK
    */
-  serverIdx?: number;
+  serverIdx?: number | undefined;
   /**
    * Sets the environment variable for url substitution
    */
-  environment?: ServerEnvironment;
+  environment?: ServerEnvironment | undefined;
   /**
    * Allows overriding the default server URL used by the SDK
    */
-  serverURL?: string;
+  serverURL?: string | undefined;
   /**
    * Allows overriding the default retry config used by the SDK
    */
@@ -86,7 +86,7 @@ export function serverURLFromOptions(options: SDKOptions): URL | null {
 export const SDK_METADATA = {
   language: "typescript",
   openapiDocVersion: "1.0.0",
-  sdkVersion: "0.3.5",
-  genVersion: "2.472.1",
-  userAgent: "speakeasy-sdk/typescript 0.3.5 2.472.1 1.0.0 petstore",
+  sdkVersion: "0.4.0",
+  genVersion: "2.595.4",
+  userAgent: "speakeasy-sdk/typescript 0.4.0 2.595.4 1.0.0 petstore",
 } as const;

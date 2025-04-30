@@ -356,7 +356,7 @@ const petstore = new Petstore({
 
 async function run() {
   const result = await petstore.users.getByUsername({
-    username: "Zachery_Lubowitz15",
+    username: "Sierra.Mayer35",
   });
 
   // Handle the result
@@ -382,7 +382,7 @@ const petstore = new PetstoreCore({
 
 async function run() {
   const res = await usersGetByUsername(petstore, {
-    username: "Zachery_Lubowitz15",
+    username: "Sierra.Mayer35",
   });
 
   if (!res.ok) {
@@ -435,7 +435,7 @@ const petstore = new Petstore({
 
 async function run() {
   await petstore.users.update({
-    username: "Dandre_Hand41",
+    username: "Ruthe_Hegmann",
     user: {
       id: 10,
       username: "theUser",
@@ -470,7 +470,7 @@ const petstore = new PetstoreCore({
 
 async function run() {
   const res = await usersUpdate(petstore, {
-    username: "Dandre_Hand41",
+    username: "Ruthe_Hegmann",
     user: {
       id: 10,
       username: "theUser",
@@ -529,7 +529,7 @@ const petstore = new Petstore({
 
 async function run() {
   const result = await petstore.users.delete({
-    username: "Demetris_Schmitt",
+    username: "Karolann_Howe",
   });
 
   // Handle the result
@@ -555,7 +555,7 @@ const petstore = new PetstoreCore({
 
 async function run() {
   const res = await usersDelete(petstore, {
-    username: "Demetris_Schmitt",
+    username: "Karolann_Howe",
   });
 
   if (!res.ok) {

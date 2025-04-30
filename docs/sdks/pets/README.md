@@ -37,6 +37,7 @@ async function run() {
     photoUrls: [
       "<value>",
       "<value>",
+      "<value>",
     ],
   });
 
@@ -70,6 +71,7 @@ async function run() {
       name: "Dogs",
     },
     photoUrls: [
+      "<value>",
       "<value>",
       "<value>",
     ],
@@ -133,6 +135,7 @@ async function run() {
     },
     photoUrls: [
       "<value>",
+      "<value>",
     ],
   });
 
@@ -166,6 +169,7 @@ async function run() {
       name: "Dogs",
     },
     photoUrls: [
+      "<value>",
       "<value>",
     ],
   });
@@ -367,7 +371,7 @@ const petstore = new Petstore({
 
 async function run() {
   const result = await petstore.pets.get({
-    petId: 504151,
+    petId: 700347,
   });
 
   // Handle the result
@@ -393,7 +397,7 @@ const petstore = new PetstoreCore({
 
 async function run() {
   const res = await petsGet(petstore, {
-    petId: 504151,
+    petId: 700347,
   });
 
   if (!res.ok) {
@@ -446,7 +450,7 @@ const petstore = new Petstore({
 
 async function run() {
   const result = await petstore.pets.delete({
-    petId: 441876,
+    petId: 545907,
   });
 
   // Handle the result
@@ -472,7 +476,7 @@ const petstore = new PetstoreCore({
 
 async function run() {
   const res = await petsDelete(petstore, {
-    petId: 441876,
+    petId: 545907,
   });
 
   if (!res.ok) {
@@ -525,7 +529,7 @@ const petstore = new Petstore({
 
 async function run() {
   const result = await petstore.pets.uploadImage({
-    petId: 565380,
+    petId: 461855,
   });
 
   // Handle the result
@@ -551,7 +555,7 @@ const petstore = new PetstoreCore({
 
 async function run() {
   const res = await petsUploadImage(petstore, {
-    petId: 565380,
+    petId: 461855,
   });
 
   if (!res.ok) {

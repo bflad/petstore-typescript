@@ -10,8 +10,11 @@ generation:
   useClassNamesForArrayFields: true
   fixes:
     nameResolutionDec2023: true
+    nameResolutionFeb2025: false
     parameterOrderingFeb2024: true
     requestResponseComponentNamesFeb2024: true
+    securityFeb2025: false
+    sharedErrorComponentsApr2025: false
   auth:
     oAuth2ClientCredentialsEnabled: true
     oAuth2PasswordEnabled: false
@@ -30,7 +33,7 @@ mockserver:
   outputModelSuffix: output
   responseFormat: envelope-http
 typescript:
-  version: 0.3.5
+  version: 0.4.0
   additionalDependencies:
     dependencies: {}
     devDependencies: {}
@@ -42,6 +45,8 @@ typescript:
     - pnpm
     - install
   defaultErrorName: SDKError
+  enableCustomCodeRegions: false
+  enableMCPServer: true
   enableReactQuery: false
   enumFormat: union
   envVarPrefix: PETSTORE
@@ -56,6 +61,7 @@ typescript:
       shared: models/components
       webhooks: models/webhooks
   inputModelSuffix: input
+  jsonpath: legacy
   maxMethodParams: 0
   methodArguments: require-security-and-request
   moduleFormat: commonjs

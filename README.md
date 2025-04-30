@@ -57,6 +57,10 @@ For more information about the API: [Find out more about Swagger](http://swagger
 <!-- Start SDK Installation [installation] -->
 ## SDK Installation
 
+> [!TIP]
+> To finish publishing your SDK to npm and others you must [run your first generation action](https://www.speakeasy.com/docs/github-setup#step-by-step-guide).
+
+
 The SDK can be installed with either [npm](https://www.npmjs.com/), [pnpm](https://pnpm.io/), [bun](https://bun.sh/) or [yarn](https://classic.yarnpkg.com/en/) package managers.
 
 ### NPM
@@ -84,6 +88,91 @@ yarn add <UNSET> zod
 
 # Note that Yarn does not install peer dependencies automatically. You will need
 # to install zod as shown above.
+```
+
+
+
+### Model Context Protocol (MCP) Server
+
+This SDK is also an installable MCP server where the various SDK methods are
+exposed as tools that can be invoked by AI applications.
+
+> Node.js v20 or greater is required to run the MCP server from npm.
+
+<details>
+<summary>Claude installation steps</summary>
+
+Add the following server definition to your `claude_desktop_config.json` file:
+
+```json
+{
+  "mcpServers": {
+    "Petstore": {
+      "command": "npx",
+      "args": [
+        "-y", "--package", "petstore",
+        "--",
+        "mcp", "start",
+        "--api-key", "..."
+      ]
+    }
+  }
+}
+```
+
+</details>
+
+<details>
+<summary>Cursor installation steps</summary>
+
+Create a `.cursor/mcp.json` file in your project root with the following content:
+
+```json
+{
+  "mcpServers": {
+    "Petstore": {
+      "command": "npx",
+      "args": [
+        "-y", "--package", "petstore",
+        "--",
+        "mcp", "start",
+        "--api-key", "..."
+      ]
+    }
+  }
+}
+```
+
+</details>
+
+You can also run MCP servers as a standalone binary with no additional dependencies. You must pull these binaries from available Github releases:
+
+```bash
+curl -L -o mcp-server \
+    https://github.com/{org}/{repo}/releases/download/{tag}/mcp-server-bun-darwin-arm64 && \
+chmod +x mcp-server
+```
+
+If the repo is a private repo you must add your Github PAT to download a release `-H "Authorization: Bearer {GITHUB_PAT}"`.
+
+
+```json
+{
+  "mcpServers": {
+    "Todos": {
+      "command": "./DOWNLOAD/PATH/mcp-server",
+      "args": [
+        "start"
+      ]
+    }
+  }
+}
+```
+
+For a full list of server arguments, run:
+
+```sh
+npx -y --package petstore -- mcp start --help
 ```
 <!-- End SDK Installation [installation] -->
 
@@ -114,6 +203,7 @@ async function run() {
       name: "Dogs",
     },
     photoUrls: [
+      "<value>",
       "<value>",
       "<value>",
     ],
@@ -228,7 +318,7 @@ const petstore = new Petstore({
 
 async function run() {
   const result = await petstore.pets.uploadImage({
-    petId: 565380,
+    petId: 461855,
   });
 
   // Handle the result
@@ -262,6 +352,7 @@ async function run() {
       name: "Dogs",
     },
     photoUrls: [
+      "<value>",
       "<value>",
       "<value>",
     ],
@@ -315,6 +406,7 @@ async function run() {
     photoUrls: [
       "<value>",
       "<value>",
+      "<value>",
     ],
   });
 
@@ -330,19 +422,7 @@ run();
 <!-- Start Error Handling [errors] -->
 ## Error Handling
 
-All SDK methods return a response object or throw an error. By default, an API error will throw a `errors.SDKError`.
-
-If a HTTP request fails, an operation my also throw an error from the `models/errors/httpclienterrors.ts` module:
-
-| HTTP Client Error                                    | Description                                          |
-| ---------------------------------------------------- | ---------------------------------------------------- |
-| RequestAbortedError                                  | HTTP request was aborted by the client               |
-| RequestTimeoutError                                  | HTTP request timed out due to an AbortSignal signal  |
-| ConnectionError                                      | HTTP client was unable to make a request to a server |
-| InvalidRequestError                                  | Any input used to create a request is invalid        |
-| UnexpectedClientError                                | Unrecognised or unexpected error                     |
-
-In addition, when custom error responses are specified for an operation, the SDK may throw their associated Error type. You can refer to respective *Errors* tables in SDK docs for more details on possible error types for each operation. For example, the `update` method may throw the following errors:
+Some methods specify known errors which can be thrown. All the known errors are enumerated in the `models/errors/errors.ts` module. The known errors for a method are documented under the *Errors* tables in SDK docs. For example, the `update` method may throw the following errors:
 
 | Error Type                  | Status Code | Content Type     |
 | --------------------------- | ----------- | ---------------- |
@@ -350,6 +430,8 @@ In addition, when custom error responses are specified for an operation, the SDK
 | errors.ApiErrorUnauthorized | 401         | application/json |
 | errors.ApiErrorNotFound     | 404         | application/json |
 | errors.SDKError             | 4XX, 5XX    | \*/\*            |
+
+If the method throws an error and it is not captured by the known errors, it will default to throwing a `SDKError`.
 
 ```typescript
 import { Petstore } from "petstore";
@@ -377,6 +459,7 @@ async function run() {
       photoUrls: [
         "<value>",
         "<value>",
+        "<value>",
       ],
     });
 
@@ -384,8 +467,9 @@ async function run() {
     console.log(result);
   } catch (err) {
     switch (true) {
+      // The server response does not match the expected SDK schema
       case (err instanceof SDKValidationError): {
-        // Validation errors can be pretty-printed
+        // Pretty-print will provide a human-readable multi-line error message
         console.error(err.pretty());
         // Raw value may also be inspected
         console.error(err.rawValue);
@@ -407,6 +491,7 @@ async function run() {
         return;
       }
       default: {
+        // Other errors such as network errors, see HTTPClientErrors for more details
         throw err;
       }
     }
@@ -417,7 +502,17 @@ run();
 
 ```
 
-Validation errors can also occur when either method arguments or data returned from the server do not match the expected format. The `SDKValidationError` that is thrown as a result will capture the raw value that failed validation in an attribute called `rawValue`. Additionally, a `pretty()` method is available on this error that can be used to log a nicely formatted string since validation errors can list many issues and the plain error string may be difficult read when debugging.
+Validation errors can also occur when either method arguments or data returned from the server do not match the expected format. The `SDKValidationError` that is thrown as a result will capture the raw value that failed validation in an attribute called `rawValue`. Additionally, a `pretty()` method is available on this error that can be used to log a nicely formatted multi-line string since validation errors can list many issues and the plain error string may be difficult read when debugging.
+
+In some rare cases, the SDK can fail to get a response from the server or even make the request due to unexpected circumstances such as network conditions. These types of errors are captured in the `models/errors/httpclienterrors.ts` module:
+
+| HTTP Client Error                                    | Description                                          |
+| ---------------------------------------------------- | ---------------------------------------------------- |
+| RequestAbortedError                                  | HTTP request was aborted by the client               |
+| RequestTimeoutError                                  | HTTP request timed out due to an AbortSignal signal  |
+| ConnectionError                                      | HTTP client was unable to make a request to a server |
+| InvalidRequestError                                  | Any input used to create a request is invalid        |
+| UnexpectedClientError                                | Unrecognised or unexpected error                     |
 <!-- End Error Handling [errors] -->
 
 <!-- Start Server Selection [server] -->
@@ -427,12 +522,16 @@ Validation errors can also occur when either method arguments or data returned f
 
 You can override the default server globally by passing a server index to the `serverIdx: number` optional parameter when initializing the SDK client instance. The selected server will then be used as the default on the operations that use it. This table lists the indexes associated with the available servers:
 
-| #   | Server                              | Variables                               | Default values |
-| --- | ----------------------------------- | --------------------------------------- | -------------- |
-| 0   | `http://localhost:18080`            |                                         |                |
-| 1   | `https://{environment}.petstore.io` | `environment: models.ServerEnvironment` | `"prod"`       |
+| #   | Server                              | Variables     | Description            |
+| --- | ----------------------------------- | ------------- | ---------------------- |
+| 0   | `http://localhost:18080`            |               | Mock API server.       |
+| 1   | `https://{environment}.petstore.io` | `environment` | A per-environment API. |
 
-If the selected server has variables, you may override their default values through the additional parameters made available in the SDK constructor.
+If the selected server has variables, you may override its default values through the additional parameters made available in the SDK constructor:
+
+| Variable      | Parameter                               | Supported Values                           | Default  | Description                                                   |
+| ------------- | --------------------------------------- | ------------------------------------------ | -------- | ------------------------------------------------------------- |
+| `environment` | `environment: models.ServerEnvironment` | - `"prod"`<br/>- `"staging"`<br/>- `"dev"` | `"prod"` | The environment name. Defaults to the production environment. |
 
 #### Example
 
@@ -441,6 +540,7 @@ import { Petstore } from "petstore";
 
 const petstore = new Petstore({
   serverIdx: 1,
+  environment: "dev",
   apiKey: process.env["PETSTORE_API_KEY"] ?? "",
 });
 
@@ -453,6 +553,7 @@ async function run() {
       name: "Dogs",
     },
     photoUrls: [
+      "<value>",
       "<value>",
       "<value>",
     ],
@@ -486,6 +587,7 @@ async function run() {
       name: "Dogs",
     },
     photoUrls: [
+      "<value>",
       "<value>",
       "<value>",
     ],
@@ -577,6 +679,7 @@ async function run() {
       name: "Dogs",
     },
     photoUrls: [
+      "<value>",
       "<value>",
       "<value>",
     ],

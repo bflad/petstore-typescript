@@ -40,6 +40,7 @@ async function run() {
     photoUrls: [
       "<value>",
       "<value>",
+      "<value>",
     ],
   });
 

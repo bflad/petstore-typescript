@@ -6,7 +6,7 @@
 import { DeleteOrderRequest } from "petstore/models/operations";
 
 let value: DeleteOrderRequest = {
-  orderId: 645894,
+  orderId: 377970,
 };
 ```
 

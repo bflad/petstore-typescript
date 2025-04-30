@@ -108,7 +108,7 @@ const petstore = new Petstore({
 
 async function run() {
   const result = await petstore.orders.getById({
-    orderId: 614993,
+    orderId: 276218,
   });
 
   // Handle the result
@@ -134,7 +134,7 @@ const petstore = new PetstoreCore({
 
 async function run() {
   const res = await ordersGetById(petstore, {
-    orderId: 614993,
+    orderId: 276218,
   });
 
   if (!res.ok) {
@@ -187,7 +187,7 @@ const petstore = new Petstore({
 
 async function run() {
   const result = await petstore.orders.delete({
-    orderId: 127902,
+    orderId: 545907,
   });
 
   // Handle the result
@@ -213,7 +213,7 @@ const petstore = new PetstoreCore({
 
 async function run() {
   const res = await ordersDelete(petstore, {
-    orderId: 127902,
+    orderId: 545907,
   });
 
   if (!res.ok) {
