@@ -18,11 +18,11 @@ permissions:
     - cron: 0 0 * * *
 jobs:
   generate:
-    uses: speakeasy-api/sdk-generation-action/.github/workflows/workflow-executor.yaml@a4daf3fab0660c258e9d0396bf578c8757add43e
+    uses: speakeasy-api/sdk-generation-action/.github/workflows/workflow-executor.yaml@80f549c8681f38336b387ecdb433aabe74fb9357
     with:
       force: ${{ github.event.inputs.force }}
       mode: pr
-      runs-on: '"windows-latest"'
+      runs-on: ubuntu-24.04
       set_version: ${{ github.event.inputs.set_version }}
       speakeasy_version: latest
       pnpm_version: "9.11.0"
