@@ -22,7 +22,7 @@ jobs:
     with:
       force: ${{ github.event.inputs.force }}
       mode: pr
-      runs-on: '["linux", "x64"]'
+      runs-on: '{"group": "example"}'
       set_version: ${{ github.event.inputs.set_version }}
       speakeasy_version: latest
       pnpm_version: "9.11.0"
