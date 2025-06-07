@@ -5,8 +5,10 @@ management:
   docVersion: 1.0.0
   speakeasyVersion: 1.541.1
   generationVersion: 2.595.4
-  releaseVersion: 0.4.0
-  configChecksum: d8d0a19efd0979991e510edfc2624ea6
+  releaseVersion: 0.5.1
+  configChecksum: ec32cbe0c8fc9ce166af301615754d07
+  repoURL: https://github.com/bflad/petstore-typescript.git
+  installationURL: https://github.com/bflad/petstore-typescript
 features:
   typescript:
     additionalDependencies: 0.1.0
